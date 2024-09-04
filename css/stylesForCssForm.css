@@ -1,0 +1,81 @@
+body {
+    background: black;
+}
+
+.content {
+    width: 55%;
+    margin: auto;
+    background: wheat;
+    padding: 15px 15px 15px 25px;
+}
+
+.header {
+    color: #666666;
+    font-size: 26px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.header-block {
+    background: white;
+    width: 55%;
+    margin: auto;
+    padding: 20px 20px 5px 20px;
+    margin-top: 15%;
+}
+
+.text {
+    color: #666666;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    padding: 10px 0 5px 0;
+}
+
+.text-bottom {
+    color: #666666;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 10px 0 5px 0;
+}
+
+#name {
+    background: white;
+    width: 99%;
+    height: 35px;
+    text-indent: 15px;
+}
+
+#phone {
+    background: white;
+    width: 99%;
+    height: 35px;
+    text-indent: 15px;
+}
+
+#email {
+    background: white;
+    width: 99%;
+    height: 35px;
+    text-indent: 15px;
+}
+
+#comment {
+    background: white;
+    width: 99%;
+    height: 100px;
+    text-indent: 15px;
+    padding: 10px 0 5px 0;
+}
+
+#send {
+    display: block;
+    margin-top: 20px;
+    margin-left: auto;
+    color: white;
+    background: #01748e;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    height: 35px;
+    width: 20%;
+}

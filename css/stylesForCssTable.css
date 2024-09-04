@@ -1,0 +1,38 @@
+table {
+    border-collapse: collapse;
+    width: 55%;
+    margin: auto;
+    padding: 15px;
+    margin-top: 15%;
+}
+
+td, th {
+    border: 1px solid #d6d6d6;
+    height: 40px;
+    text-align: left;
+    font-size: 20px;
+    padding: 12px 0 12px 10px;
+    font-weight: normal;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+thead {
+    background:#0e99cd;
+    color: white;
+}
+
+tbody {
+    color: black;
+}
+
+.grayZone {
+    background: #e6e6e6;
+}
+
+.whiteZone {
+    background: white;
+}
+
+body {
+    background: black;
+}
