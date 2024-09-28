@@ -1,39 +1,41 @@
+body {
+    background: black;
+    line-height: 1.42857143;
+}
+
 p {
     display: inline;
     color: #676565;
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-    font-size: 1.1em;
-    margin: 0 0 10px;
+    font-size: 15px;
 }
 
 h1 {
     text-transform: uppercase;
     color: #676565;
-    font-size: 2em;
+    font-size: 28px;
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     margin-bottom: 10px;
+    line-height: 1.1;
 }
 
-#block {
-    text-align: center;
-}
-
-#line {
+.line {
     text-decoration: line-through;
 }
 
 .paddings {
-    margin: 0 0 10px;
+    margin-bottom: .3em;
 }
 
-.paddingsForBigText{
+.paddings-big {
     text-indent: 1em;
     margin: 0 0 10px;
 }
 
 .blue {
     color: #378db2;
-    font-weight: bold;
+    font-weight: 700;
+    font-size: 15px;
 }
 
 .main_content {
@@ -45,13 +47,9 @@ h1 {
     height: 423px;
     margin: auto;
     background: #feeed6;
-    padding: 10px 15px 15px 15px;
+    padding: 10px;
     margin-top: 15%;
-}
-
-body {
-    background: black;
-    line-height: 1.42857143;
+    box-sizing: border-box;
 }
 
 .justify {
