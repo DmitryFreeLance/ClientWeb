@@ -1,81 +1,87 @@
 body {
     background: black;
+    box-sizing: border-box;
+    line-height: 1.42857143;
 }
 
 .content {
-    width: 55%;
+    width: 742px;
+    height: 450px;
     margin: auto;
-    background: wheat;
+    background: #feeed6;
     padding: 15px 15px 15px 25px;
+    display:block;
 }
 
 .header {
-    color: #666666;
-    font-size: 26px;
-    font-family: Arial, Helvetica, sans-serif;
+    color: #676565;
+    font-size: 28px;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    margin-bottom: 4px;
+    margin-top: 0;
+    line-height: 1.1;
 }
 
 .header-block {
-    background: white;
-    width: 55%;
-    margin: auto;
-    padding: 20px 20px 5px 20px;
-    margin-top: 15%;
+    background: #FFFFFFFF;
+    width: 742px;
+    padding: 20px 20px 5px;
+    margin: 15% auto 0;
 }
 
 .text {
-    color: #666666;
+    color: #676565;
     font-size: 14px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    padding: 10px 0 5px 0;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.text-top {
+    color: #676565;
+    font-size: 14px;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    margin-bottom: 5px;
 }
 
 .text-bottom {
-    color: #666666;
+    color: #676565;
     font-size: 14px;
-    font-family: Arial, Helvetica, sans-serif;
-    padding: 10px 0 5px 0;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    margin-top: 5px;
+    margin-bottom: 10px;
 }
 
-#name {
-    background: white;
-    width: 99%;
-    height: 35px;
-    text-indent: 15px;
+.input {
+    background: #FFFFFFFF;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
 }
 
-#phone {
-    background: white;
-    width: 99%;
-    height: 35px;
-    text-indent: 15px;
+.comment {
+    background: #FFFFFFFF;
+    width: 100%;
+    height: 110px;
+    padding: 6px 12px;
+    resize: vertical;
 }
 
-#email {
-    background: white;
-    width: 99%;
-    height: 35px;
-    text-indent: 15px;
-}
-
-#comment {
-    background: white;
-    width: 99%;
-    height: 100px;
-    text-indent: 15px;
-    padding: 10px 0 5px 0;
-}
-
-#send {
-    display: block;
-    margin-top: 20px;
-    margin-left: auto;
-    color: white;
-    background: #01748e;
+.send-button {
+    display: inline-block;
+    padding: 6px 12px;
+    text-align:center;
+    float: right !important;
+    color: #FFFFFFFF;
+    background: #378db2;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    line-height: inherit;
+    font-weight: 700;
     font-size: 14px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    height: 35px;
-    width: 20%;
+}
+
+.send-button:hover{
+    background: #20799f;
 }
