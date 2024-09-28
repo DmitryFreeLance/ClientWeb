@@ -1,38 +1,38 @@
-table {
-    border-collapse: collapse;
-    width: 55%;
-    margin: auto;
-    padding: 15px;
-    margin-top: 15%;
+body {
+    background: #000000FF;
+    box-sizing: border-box;
 }
 
-td, th {
+table {
+    border-collapse: collapse;
+    width: 860px;
+    height: 312px;
+    margin: 15% auto;
+    padding: 15px;
+}
+
+.cell {
     border: 1px solid #d6d6d6;
-    height: 40px;
     text-align: left;
-    font-size: 20px;
-    padding: 12px 0 12px 10px;
+    font-size: 21px;
+    padding: 12px 10px 12px;
     font-weight: normal;
     font-family: Arial, Helvetica, sans-serif;
 }
 
 thead {
-    background:#0e99cd;
-    color: white;
+    background:#3498DB;
+    color: #FFFFFFFF;
 }
 
 tbody {
-    color: black;
+    color: #000000FF;
 }
 
-.grayZone {
+tbody tr:nth-child(odd) {
     background: #e6e6e6;
 }
 
-.whiteZone {
-    background: white;
-}
-
-body {
-    background: black;
+tbody tr:nth-child(even) {
+    background: #FFFFFFFF;
 }
