@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>TEMPERATURE CONVERSION</title>
+    <link rel="stylesheet" href="../../css/cssReset.css">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+<div class="content">
+    <p>Перевод Температур</p>
+    <table class="table">
+        <tr>
+            <th class="cell">ИЗ</th>
+            <th class="cell">В</th>
+        </tr>
+        <tr>
+            <td>
+                <label>
+                    <select id="choosing_scale">
+                        <option value="celsius">Цельсий</option>
+                        <option value="kelvin">Кельвин</option>
+                        <option value="fahrenheit">Фаренгейт</option>
+                    </select>
+                </label>
+            </td>
+            <td>
+                <label>
+                <select id="resulting_scale">
+                    <option value="celsius">Цельсий</option>
+                    <option value="kelvin">Кельвин</option>
+                    <option value="fahrenheit">Фаренгейт</option>
+                </select>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>
+                <input type="text" id="input">
+                </label>
+            </td>
+            <td>
+                <label>
+                    <input type="text" id="output" value=""  readonly>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><button class="btn">Перевод</button></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
