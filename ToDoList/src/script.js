@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 const cancelButton = parent.querySelector(".cancel-btn");
                 const inputField = parent.querySelector("#edit-input");
 
-                saveButton.addEventListener("click,", function(){
+                saveButton.addEventListener("click", function(){
                     const newText = inputField.value;
                     textElement.innerHTML = newText;
 
