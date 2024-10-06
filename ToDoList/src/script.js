@@ -7,12 +7,12 @@ document.addEventListener("DOMContentLoaded", function() {
     function findRemoveButtons() {
         const removeButtons = document.querySelectorAll(".remove-btn");
         removeButtons.forEach(function(button) {
-            button.onclick = function(e) {
+            button.addEventListener("click", function(e) {
                 const item = e.target.parentNode;
                 item.remove();
                 currentHeight -= 40;
                 content.style.height = `${currentHeight}px`;
-            };
+            });
         });
     }
 
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const editButtons = document.querySelectorAll(".edit-btn");
 
         editButtons.forEach(function(button) {
-            button.onclick = function(e) {
+            button.addEventListener("click", function(e){
                 const parent = button.parentElement;
                 const textElement = parent.querySelector(".text");
 
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 const cancelButton = parent.querySelector(".cancel-btn");
                 const inputField = parent.querySelector("#edit-input");
 
-                saveButton.onclick = function() {
+                saveButton.addEventListener("click,", function(){
                     const newText = inputField.value;
                     textElement.innerHTML = newText;
 
@@ -45,21 +45,21 @@ document.addEventListener("DOMContentLoaded", function() {
                     cancelButton.remove();
 
                     findEditButtons();
-                };
+                });
 
-                cancelButton.onclick = function() {
+                cancelButton.addEventListener("click", function(){
                     textElement.innerHTML = originalText;
 
                     cancelButton.outerHTML = `<button class="edit-btn">Редактировать</button>`;
                     saveButton.remove();
 
                     findEditButtons();
-                };
-            };
+                });
+            });
         });
     }
 
-    addButton.onclick = function(e) {
+    addButton.addEventListener("click", function(e) {
         const input = document.querySelector("#input").value;
 
         if (input.length == 0) {
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function() {
             findEditButtons();
             findRemoveButtons();
         }
-    };
+    });
 
     findEditButtons();
     findRemoveButtons();
