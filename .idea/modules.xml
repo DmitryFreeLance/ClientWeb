@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/css/CssForm/CssForm.iml" filepath="$PROJECT_DIR$/css/CssForm/CssForm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/css/CssTable/CssTable.iml" filepath="$PROJECT_DIR$/css/CssTable/CssTable.iml" />
+      <module fileurl="file://$PROJECT_DIR$/css/CssText/CssText.iml" filepath="$PROJECT_DIR$/css/CssText/CssText.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JavaScript/JavaScript.iml" filepath="$PROJECT_DIR$/JavaScript/JavaScript.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TemperatureConversion/TemperatureConversion.iml" filepath="$PROJECT_DIR$/TemperatureConversion/TemperatureConversion.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ToDoList/ToDoList.iml" filepath="$PROJECT_DIR$/ToDoList/ToDoList.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ToDoListJQuery/ToDoListJQuery.iml" filepath="$PROJECT_DIR$/ToDoListJQuery/ToDoListJQuery.iml" />
+      <module fileurl="file://$PROJECT_DIR$/css/css.iml" filepath="$PROJECT_DIR$/css/css.iml" />
+      <module fileurl="file://$PROJECT_DIR$/html/html.iml" filepath="$PROJECT_DIR$/html/html.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/web.iml" filepath="$PROJECT_DIR$/.idea/web.iml" />
+    </modules>
+  </component>
+</project>
