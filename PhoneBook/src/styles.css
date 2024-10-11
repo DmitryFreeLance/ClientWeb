@@ -1,0 +1,128 @@
+.content{
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    margin: 12% auto;
+    text-align: center;
+    width: 800px;
+    height: auto;
+}
+
+.phone-book{
+    width: 100%;
+    border-collapse: collapse;
+    color: #ffffff;
+    margin-top: 25px;
+}
+
+.t-head{
+    border: 1px solid #ffffff;
+    background: #16365c;
+    min-width: 20px;
+}
+
+tr td{
+    border-collapse: collapse;
+    border: 1px solid #ffffff;
+    background: #5a9bea;
+}
+
+input {
+    border: 2px solid #157dff;
+    color: black;
+}
+
+.add-btn {
+    padding: 0 15px;
+    text-align:center;
+    color: #FFFFFFFF;
+    background: #157dff;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: inherit;
+}
+
+.remove-btn {
+    background: inherit;
+    border: 1px solid black;
+    margin: 2px;
+}
+
+.remove-btn-main {
+    background: inherit;
+    border: 1px solid white;
+    margin: 2px;
+}
+
+.edit-btn {
+    background: inherit;
+    border: 1px solid black;
+    margin: 2px;
+}
+
+.red-background {
+    background: #8e0808;
+    border: 1px solid #000000;
+    color: #ffffff;
+}
+
+.red-background::placeholder {
+    color: #ffffff;
+}
+
+.images{
+    width: 20px;
+}
+
+.save-btn {
+    padding: 0 15px;
+    text-align:center;
+    color: #FFFFFFFF;
+    background: #349e43;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: inherit;
+}
+
+.cancel-btn {
+    padding: 0 15px;
+    text-align:center;
+    color: #FFFFFFFF;
+    background: #aa501c;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: inherit;
+}
+
+#filter-input {
+    width: 24%;
+}
+
+.apply-filter-btn {
+    padding: 0 15px;
+    text-align:center;
+    color: #FFFFFFFF;
+    background: #157dff;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: inherit;
+}
+
+.reset-filter-btn {
+    padding: 0 15px;
+    text-align:center;
+    color: #FFFFFFFF;
+    background: #157dff;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: inherit;
+}
+
+#dialog-confirm {
+    float:left;
+    margin:12px 12px 20px 0;
+    display: none;
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>PhoneBook</title>
+    <script defer src="jquery-3.7.1.js"></script>
+    <script defer src="jquery-ui-1.14.0/jquery-ui.js"></script>
+    <script defer src="script.js"></script>
+    <link href="jquery-ui-1.14.0/jquery-ui.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+<div class="content">
+    <h1>Телефонная Книга</h1>
+    <label class="input">
+        <input type="text" class="main-input" id="surname" placeholder="Фамилия" maxlength="18">
+        <input type="text" class="main-input" id="name" placeholder="Имя" maxlength="18">
+        <input type="tel" class="main-input" id="phone" placeholder="Номер телефона" maxlength="11" pattern="[0-9]{10}">
+        <button class="add-btn">Добавить</button>
+    </label>
+    <div id="dialog-confirm" title="Подтверждение удаления">
+        <p><span class="ui-icon-alert"></span>Вы уверены что хотите удалить выбранный контакт?</p>
+    </div>
+    <p class="error-msg"></p>
+    <p class="error-phone-msg"></p>
+    <div class="filter-container">
+        <label for="filter-input"></label>
+        <input type="text" id="filter-input" placeholder="Введите текст для фильтрации">
+        <button class="apply-filter-btn">Применить фильтр</button>
+        <button class="reset-filter-btn">Сбросить фильтр</button>
+    </div>
+    <table class="phone-book">
+        <thead>
+        <tr>
+            <td class="t-head">
+                <label>
+                    <input type="checkbox" class="main-checkbox">
+                </label>
+                <button class="remove-btn-main"><img class="images" src="trash.png" alt="picture"></button>
+            </td>
+            <td class="t-head">№</td>
+            <td class="t-head">Фамилия</td>
+            <td class="t-head">Имя</td>
+            <td class="t-head">Номер телефона</td>
+            <td class="t-head"></td>
+        </tr>
+        </thead>
+    </table>
+</div>
+</body>
+</html>
