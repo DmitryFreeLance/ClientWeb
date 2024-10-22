@@ -1,87 +1,79 @@
-body {
-    background: black;
+* {
     box-sizing: border-box;
+}
+
+body {
+    background: #000000;
     line-height: 1.42857143;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    color: #676565;
 }
 
 .content {
     width: 742px;
-    height: 450px;
-    margin: auto;
+    max-width: 100%;
+    height: 480px;
+    margin: 0 auto;
     background: #feeed6;
-    padding: 15px 15px 15px 25px;
-    display:block;
+    padding: 15px 25px;
+    display: block;
 }
 
 .header {
-    color: #676565;
     font-size: 28px;
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     margin-bottom: 4px;
     margin-top: 0;
     line-height: 1.1;
 }
 
 .header-block {
-    background: #FFFFFFFF;
+    background: #ffffff;
     width: 742px;
+    max-width: 100%;
     padding: 20px 20px 5px;
     margin: 15% auto 0;
 }
 
-.text {
-    color: #676565;
+.text-top, .text, .text-bottom {
     font-size: 14px;
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-    font-weight: 700;
-    margin-top: 10px;
-    margin-bottom: 5px;
-}
-
-.text-top {
-    color: #676565;
-    font-size: 14px;
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     font-weight: 700;
     margin-bottom: 5px;
 }
 
 .text-bottom {
-    color: #676565;
-    font-size: 14px;
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     margin-top: 5px;
     margin-bottom: 10px;
 }
 
-.input {
-    background: #FFFFFFFF;
+.input, .comment {
+    background: #ffffff;
     width: 100%;
-    height: 34px;
     padding: 6px 12px;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.input {
+    height: 34px;
 }
 
 .comment {
-    background: #FFFFFFFF;
-    width: 100%;
     height: 110px;
-    padding: 6px 12px;
     resize: vertical;
+    overflow: auto;
 }
 
 .send-button {
     display: inline-block;
     padding: 6px 12px;
-    text-align:center;
-    float: right !important;
-    color: #FFFFFFFF;
+    text-align: center;
+    color: #ffffff;
     background: #378db2;
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-    line-height: inherit;
     font-weight: 700;
     font-size: 14px;
+    float: right;
 }
 
-.send-button:hover{
+.send-button:hover {
     background: #20799f;
 }
