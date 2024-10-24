@@ -1,0 +1,127 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 14px;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-weight: 700;
+}
+
+.content {
+    margin: 12% auto;
+    text-align: center;
+    width: 850px;
+}
+
+.phone-book {
+    width: 100%;
+    border-collapse: collapse;
+    color: #fff;
+    margin-top: 25px;
+}
+
+.phone-book th, .phone-book td {
+    border: 1px solid #fff;
+    background: #16365c;
+    padding: 8px;
+}
+
+.phone-book tbody td {
+    background: #5a9bea;
+}
+
+.main-input {
+    border: 2px solid #157dff;
+    color: #000;
+    font-size: 14px;
+    padding: 5px;
+}
+
+.add-btn {
+    padding: 5px 15px;
+    text-align: center;
+    color: #fff;
+    background: #157dff;
+    cursor: pointer;
+}
+
+.remove-btn-main, .remove-btn {
+    background: #8b0000;
+    border: 1px solid #fff;
+    margin: 2px;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background: #349e43;
+    border: 1px solid #fff;
+    margin: 2px;
+    cursor: pointer;
+}
+
+.red-background {
+    background: #8e0808;
+    border: 1px solid #000;
+    color: #fff;
+}
+
+.red-background::placeholder {
+    color: #fff;
+}
+
+.images {
+    width: 20px;
+    cursor: pointer;
+}
+
+.save-btn {
+    padding: 5px 15px;
+    text-align: center;
+    color: #fff;
+    background: #349e43;
+    line-height: inherit;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    padding: 5px 15px;
+    text-align: center;
+    color: #fff;
+    background: #aa501c;
+    line-height: inherit;
+    cursor: pointer;
+}
+
+#filter-input {
+    width: 24%;
+    padding: 5px;
+    border: 1px solid #8e0808;
+}
+
+.apply-filter-btn, .reset-filter-btn {
+    padding: 5px 15px;
+    text-align: center;
+    color: #fff;
+    background: #157dff;
+    cursor: pointer;
+}
+
+#error-phone-msg, #error-msg {
+    color: #8e0808;
+}
+
+#dialog-confirm {
+    float: left;
+    margin: 12px 12px 20px 0;
+    display: none;
+}
+
+.checkbox-cell {
+    text-align: center;
+    padding: 8px;
+}
+
+.filter-container {
+    margin-top: 20px;
+}
