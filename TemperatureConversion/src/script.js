@@ -1,34 +1,48 @@
-document.addEventListener("DOMContentLoaded", function(){
-    const button = document.querySelector(".btn");
-    button.onclick = function(e){
-        const choosingScale = document.querySelector('#choosing_scale').value;
-        const resultingScale = document.querySelector('#resulting_scale').value;
+document.addEventListener('DOMContentLoaded', function () {
+    const convertButton = document.querySelector('.btn');
 
-        const enteredValue = parseFloat(document.querySelector("#input").value);
+    convertButton.addEventListener('click', function () {
+        const inputScale = document.querySelector('.input_scale').value;
+        const outputScale = document.querySelector('.result_scale').value;
+        const inputTemperature = parseFloat(document.querySelector('.input-field').value);
 
-        const result = convertTemperature(enteredValue, choosingScale, resultingScale);
-
-        document.querySelector("#output").value = result;
-    };
-
-    function convertTemperature(value, fromScale, toScale) {
-        let celsius;
-
-        if (fromScale === 'celsius') {
-            celsius = value;
-        } else if (fromScale === 'fahrenheit') {
-            celsius = fahrenheitToCelsius(value);
-        } else if (fromScale === 'kelvin') {
-            celsius = kelvinToCelsius(value);
+        if (isNaN(inputTemperature)) {
+            displayError('Необходимо ввести число.');
+            return;
         }
 
-        if (toScale === 'celsius') {
-            return celsius;
-        } else if (toScale === 'fahrenheit') {
-            return celsiusToFahrenheit(celsius);
-        } else if (toScale === 'kelvin') {
-            return celsiusToKelvin(celsius);
+        const convertedTemperature = convertTemperature(inputTemperature, inputScale, outputScale);
+        if (convertedTemperature === null) {
+            displayError('Ошибка при конвертации');
+        } else {
+            document.querySelector('.output-field').value = convertedTemperature.toFixed(2);
         }
+    });
+
+    function convertTemperature(temperature, fromScale, toScale) {
+        const converters = {
+            'celsius': {
+                'fahrenheit': celsiusToFahrenheit,
+                'kelvin': celsiusToKelvin,
+                'celsius': (temp) => temp
+            },
+            'fahrenheit': {
+                'celsius': fahrenheitToCelsius,
+                'kelvin': fahrenheitToKelvin,
+                'fahrenheit': (temp) => temp
+            },
+            'kelvin': {
+                'celsius': kelvinToCelsius,
+                'fahrenheit': kelvinToFahrenheit,
+                'kelvin': (temp) => temp
+            }
+        };
+
+        if (!converters[fromScale] || !converters[fromScale][toScale]) {
+            return null;
+        }
+
+        return converters[fromScale][toScale](temperature);
     }
 
     function celsiusToFahrenheit(celsius) {
@@ -53,5 +67,9 @@ document.addEventListener("DOMContentLoaded", function(){
 
     function kelvinToFahrenheit(kelvin) {
         return celsiusToFahrenheit(kelvinToCelsius(kelvin));
+    }
+
+    function displayError(message) {
+        alert(message);
     }
 });

@@ -10,7 +10,7 @@
     font-weight: 700;
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     box-sizing: border-box;
-    border: 1.5px solid black;
+    border: 2px solid #000;
 }
 
 .table {
@@ -23,20 +23,26 @@
     margin-bottom: 25px;
 }
 
-#input {
+.input-field {
+    background: #3e9c3f;
     width: 60%;
-    border: 1px solid black;
+    border: 1px solid #000;
     margin-top: 25px;
+    color: #fff;
+    padding: 5px;
 }
 
-#output {
+.output-field {
+    background: #3e9c3f;
     width: 60%;
-    border: 1px solid black;
+    border: 1px solid #000;
     margin-top: 25px;
+    color: #fff;
+    padding: 5px;
 }
 
 .btn {
-    color: #FFFFFFFF;
+    color: #fff;
     background: #378db2;
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     line-height: inherit;
@@ -46,6 +52,6 @@
     margin-top: 30px;
 }
 
-.btn:hover{
+.btn:hover {
     background: #20799f;
 }

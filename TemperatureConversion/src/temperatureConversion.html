@@ -2,8 +2,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>TEMPERATURE CONVERSION</title>
-    <link rel="stylesheet" href="../../css/cssReset.css">
+    <title>Перевод Температур</title>
+    <link rel="stylesheet" href="cssReset.css">
     <link rel="stylesheet" href="styles.css">
     <script defer src="script.js"></script>
 </head>
@@ -11,14 +11,17 @@
 <div class="content">
     <p>Перевод Температур</p>
     <table class="table">
+        <thead>
         <tr>
             <th class="cell">ИЗ</th>
             <th class="cell">В</th>
         </tr>
+        </thead>
+        <tbody>
         <tr>
             <td>
                 <label>
-                    <select id="choosing_scale">
+                    <select class="input_scale">
                         <option value="celsius">Цельсий</option>
                         <option value="kelvin">Кельвин</option>
                         <option value="fahrenheit">Фаренгейт</option>
@@ -27,29 +30,32 @@
             </td>
             <td>
                 <label>
-                <select id="resulting_scale">
-                    <option value="celsius">Цельсий</option>
-                    <option value="kelvin">Кельвин</option>
-                    <option value="fahrenheit">Фаренгейт</option>
-                </select>
+                    <select class="result_scale">
+                        <option value="celsius">Цельсий</option>
+                        <option value="kelvin">Кельвин</option>
+                        <option value="fahrenheit">Фаренгейт</option>
+                    </select>
                 </label>
             </td>
         </tr>
         <tr>
             <td>
                 <label>
-                <input type="text" id="input">
+                    <input type="text" class="input-field">
                 </label>
             </td>
             <td>
                 <label>
-                    <input type="text" id="output" value=""  readonly>
+                    <input type="text" class="output-field" value="" readonly>
                 </label>
             </td>
         </tr>
         <tr>
-            <td colspan="2"><button class="btn">Перевод</button></td>
+            <td colspan="2">
+                <button class="btn">Перевод</button>
+            </td>
         </tr>
+        </tbody>
     </table>
 </div>
 </body>
