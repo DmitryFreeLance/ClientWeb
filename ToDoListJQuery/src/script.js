@@ -1,55 +1,76 @@
-$(function() {
-    const addButton = $(".btn");
-    const list = $(".list");
-    const content = $(".content");
-    let currentHeight = content.outerHeight();
+$(document).ready(function () {
+    const $addButton = $(".add-btn");
+    const $inputField = $(".input-field");
+    const $taskList = $(".task-list");
 
-    function findRemoveButtons() {
-        const removeButtons = $(".remove-btn");
-        removeButtons.each(function() {
-            $(this).click(function() {
-                $(this).parent().remove();
-                currentHeight -= 40;
-                content.css("height", `${currentHeight}px`);
-            });
+    function addTask() {
+        const taskText = $.trim($inputField.val());
+
+        if (taskText.length === 0) {
+            $inputField.addClass("error");
+            alert("Необходимо ввести данные!");
+            return;
+        }
+
+        const $taskItem = $("<li>").addClass("task-item");
+        const $taskTextSpan = $("<span>").addClass("task-text").text(taskText);
+
+        const $buttonsDiv = $("<div>").addClass("task-buttons");
+        const $editButton = $("<button>").addClass("edit-btn").text("Редактировать");
+        const $removeButton = $("<button>").addClass("remove-btn").text("Удалить");
+
+        $buttonsDiv.append($editButton, $removeButton);
+        $taskItem.append($taskTextSpan, $buttonsDiv);
+        $taskList.append($taskItem);
+
+        $inputField.val("").removeClass("error");
+
+        findEditButtons();
+
+        $removeButton.on("click", function () {
+            $taskItem.remove();
         });
     }
 
     function findEditButtons() {
-        const editButtons = $(".edit-btn");
+        $(".edit-btn").each(function () {
+            $(this).on("click", function () {
+                const $parent = $(this).closest("li");
+                const $textElement = $parent.find(".task-text");
+                const originalText = $textElement.text();
 
-        editButtons.each(function() {
-            $(this).click(function() {
-                const parent = $(this).parent();
-                const textElement = parent.find(".text");
-                const originalText = textElement.text();
-
-                textElement.html(`<input type="text" id="edit-input" value="${originalText}" maxlength="52">`);
+                $textElement.html(`<input type="text" class="edit-input" value="${originalText}" maxlength="50">`);
 
                 $(this).replaceWith(`
                     <button class="save-btn">Сохранить</button>
                     <button class="cancel-btn">Отменить</button>
                 `);
 
-                const saveButton = parent.find(".save-btn");
-                const cancelButton = parent.find(".cancel-btn");
-                const inputField = parent.find("#edit-input");
+                const $saveButton = $parent.find(".save-btn");
+                const $cancelButton = $parent.find(".cancel-btn");
+                const $inputField = $parent.find(".edit-input");
 
-                saveButton.click(function() {
-                    const newText = inputField.val();
-                    textElement.text(newText);
+                $saveButton.on("click", function () {
+                    const newText = $.trim($inputField.val());
 
-                    saveButton.replaceWith(`<button class="edit-btn">Редактировать</button>`);
-                    cancelButton.remove();
+                    if (newText.length === 0) {
+                        alert("Текст не может быть пустым!");
+                        return;
+                    }
+
+                    $textElement.text(newText);
+
+                    $saveButton.replaceWith(`<button class="edit-btn">Редактировать</button>`);
+                    $cancelButton.remove();
 
                     findEditButtons();
                 });
 
-                cancelButton.click(function() {
-                    textElement.text(originalText);
+                $cancelButton.on("click", function () {
+                    $textElement.text(originalText);
 
-                    cancelButton.replaceWith(`<button class="edit-btn">Редактировать</button>`);
-                    saveButton.remove();
+                    $cancelButton.replaceWith(`<button class="edit-btn">Редактировать</button>`);
+                    $saveButton.remove();
 
                     findEditButtons();
                 });
@@ -57,31 +78,11 @@ $(function() {
         });
     }
 
-    addButton.click(function() {
-        const input = $("#input").val();
-
-        if (input.length === 0) {
-            alert('Необходимо ввести данные!');
-        } else {
-            list.append(`
-                <div>
-                    <ul class="spisok">
-                        <span class="text">${input}</span>
-                        <button class="edit-btn">Редактировать</button>
-                        <button class="remove-btn">Удалить</button>
-                    </ul>
-                </div>
-            `);
-            $("#input").val('');
-
-            currentHeight += 40;
-            content.css("height", `${currentHeight}px`);
-
-            findEditButtons();
-            findRemoveButtons();
+    $inputField.on("keypress", function (e) {
+        if (e.key === "Enter") {
+            addTask();
         }
     });
 
-    findEditButtons();
-    findRemoveButtons();
+    $addButton.on("click", addTask);
 });

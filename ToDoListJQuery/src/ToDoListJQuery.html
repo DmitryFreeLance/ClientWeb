@@ -1,22 +1,20 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>To Do List</title>
-  <link rel="stylesheet" href="../../css/cssReset.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Список дел JQuery</title>
+  <link rel="stylesheet" href="cssReset.css">
   <link rel="stylesheet" href="styles.css">
   <script defer src="jquery-3.7.1.js"></script>
   <script defer src="script.js"></script>
 </head>
 <body>
 <div class="content">
-  <p>Список Дел</p>
-  <label>
-    <input type="text" id="input" maxlength="50">
-  </label>
-  <button class="btn">Добавить</button>
-  <ol class="list">
-  </ol>
+  <h1 class="header">Список Дел</h1>
+  <input type="text" class="input-field" maxlength="50" placeholder="Введите задачу">
+  <button class="add-btn">Добавить</button>
+  <ol class="task-list"></ol>
 </div>
 </body>
 </html>
