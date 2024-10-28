@@ -41,6 +41,10 @@ body {
     border-color: red;
 }
 
+.input-field::placeholder {
+    color: #fff
+}
+
 .add-btn {
     padding: 10px 20px;
     background: #378db2;

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Список дел Vue</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="../node_modules/vue/dist/vue.global.js" defer></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div id="app">
+            <form class="row g-3" id="add">
+                <h1 class="header">Список дел</h1>
+                <div class="col-lg-8">
+                    <label for="inputText" class="visually-hidden">Текст</label>
+                    <input v-model="newItem" type="text" class="form-control" id="inputText"
+                           placeholder="Введите задачу" maxlength="48">
+                </div>
+                <div class="col-lg-4">
+                    <button @click="addInList" type="submit" class="btn btn-primary mb-3">Добавить</button>
+                </div>
+            </form>
+            <div>
+                <ul>
+                    <li v-for="(item, index) in items" :key="index" class="items">
+                        <span v-if="!item.isEditing">{{ item.text }}</span>
+                        <input v-else v-model="item.text" type="text" class="form-control edit" maxlength="48"/>
+
+                        <div class="buttons">
+                            <button v-if="!item.isEditing" @click="editItem(index)" class="btn btn-warning btn-sm mx-1">
+                                Редактировать
+                            </button>
+                            <button v-else @click="saveItem(index)" class="btn btn-success btn-sm mx-1">Сохранить
+                            </button>
+
+                            <button v-if="!item.isEditing" @click="deleteItem(index)" class="btn btn-danger btn-sm">
+                                Удалить
+                            </button>
+                            <button v-else @click="cancelItem(index)" class="btn btn-danger btn-sm">Отменить</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

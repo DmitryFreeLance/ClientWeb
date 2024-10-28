@@ -1,15 +1,15 @@
 {
-  "name": "underscore",
+  "name": "todolistvue",
   "version": "1.0.0",
-  "main": "underscore.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
+  "description": "",
   "dependencies": {
-    "underscore": "^1.13.7"
-  },
-  "devDependencies": {},
-  "description": ""
+    "bootstrap": "^5.3.3",
+    "vue": "^3.5.12"
+  }
 }
