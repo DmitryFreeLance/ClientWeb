@@ -7,10 +7,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const taskText = inputField.value.trim();
 
         if (taskText.length === 0) {
-            inputField.classList.add("error");
+            inputField.classList.add("error-border");
             alert("Необходимо ввести данные!");
             return;
         }
+
+        inputField.classList.remove("error-border");
 
         const taskItem = document.createElement("li");
         taskItem.classList.add("task-item");
@@ -35,65 +37,70 @@ document.addEventListener("DOMContentLoaded", () => {
         taskList.appendChild(taskItem);
 
         inputField.value = "";
-        inputField.classList.remove("error");
+        attachTaskButtonHandlers(taskItem);
+    }
 
-        findEditButtons();
+    function attachTaskButtonHandlers(taskItem) {
+        const editButton = taskItem.querySelector(".edit-btn");
+        const removeButton = taskItem.querySelector(".remove-btn");
+
+        editButton.addEventListener("click", () => editTask(taskItem));
         removeButton.addEventListener("click", () => taskItem.remove());
     }
 
-    function findEditButtons() {
-        const editButtons = document.querySelectorAll(".edit-btn");
+    function editTask(taskItem) {
+        const textElement = taskItem.querySelector(".task-text");
+        const originalText = textElement.textContent;
 
-        editButtons.forEach(function (button) {
-            button.addEventListener("click", function () {
-                const parent = button.parentElement.parentElement;
-                const textElement = parent.querySelector(".task-text");
+        textElement.innerHTML = `<input type="text" class="edit-input" value="${originalText}" maxlength="50">`;
 
-                const originalText = textElement.textContent;
+        const editButtonsDiv = taskItem.querySelector(".task-buttons");
+        editButtonsDiv.innerHTML = `
+            <button class="save-btn">Сохранить</button>
+            <button class="cancel-btn">Отменить</button>
+        `;
 
-                textElement.innerHTML = `<input type="text" class="edit-input" value="${originalText}" maxlength="50">`;
+        const saveButton = taskItem.querySelector(".save-btn");
+        const cancelButton = taskItem.querySelector(".cancel-btn");
+        const editInputField = taskItem.querySelector(".edit-input");
 
-                button.outerHTML = `
-                    <button class="save-btn">Сохранить</button>
-                    <button class="cancel-btn">Отменить</button>
-                `;
+        saveButton.addEventListener("click", () => saveTask(editInputField, textElement, originalText, editButtonsDiv));
+        cancelButton.addEventListener("click", () => cancelEdit(textElement, originalText, editButtonsDiv));
 
-                const saveButton = parent.querySelector(".save-btn");
-                const cancelButton = parent.querySelector(".cancel-btn");
-                const inputField = parent.querySelector(".edit-input");
-
-                saveButton.addEventListener("click", function () {
-                    const newText = inputField.value.trim();
-
-                    if (newText.length === 0) {
-                        alert("Текст не может быть пустым!");
-                        return;
-                    }
-
-                    textElement.textContent = newText;
-
-                    saveButton.outerHTML = `<button class="edit-btn">Редактировать</button>`;
-                    cancelButton.remove();
-
-                    findEditButtons();
-                });
-
-                cancelButton.addEventListener("click", function () {
-                    textElement.textContent = originalText;
-
-                    cancelButton.outerHTML = `<button class="edit-btn">Редактировать</button>`;
-                    saveButton.remove();
-
-                    findEditButtons();
-                });
-            });
+        editInputField.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") saveTask(editInputField, textElement, originalText, editButtonsDiv);
         });
     }
 
-    inputField.addEventListener("keypress", (e) => {
-        if (e.key === "Enter") {
-            addTask();
+    function saveTask(editInputField, textElement, originalText, editButtonsDiv) {
+        const newText = editInputField.value.trim();
+
+        if (newText.length === 0) {
+            alert("Текст не может быть пустым!");
+            editInputField.classList.add("error-border");
+            return;
         }
+
+        editInputField.classList.remove("error-border");
+        textElement.textContent = newText;
+        resetButtons(editButtonsDiv);
+    }
+
+    function cancelEdit(textElement, originalText, editButtonsDiv) {
+        textElement.textContent = originalText;
+        resetButtons(editButtonsDiv);
+    }
+
+    function resetButtons(editButtonsDiv) {
+        editButtonsDiv.innerHTML = `
+            <button class="edit-btn">Редактировать</button>
+            <button class="remove-btn">Удалить</button>
+        `;
+        attachTaskButtonHandlers(editButtonsDiv.parentElement);
+    }
+
+    inputField.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") addTask();
     });
 
     addButton.addEventListener("click", addTask);
