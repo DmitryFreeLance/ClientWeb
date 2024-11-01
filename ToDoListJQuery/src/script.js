@@ -1,88 +1,89 @@
 $(document).ready(function () {
-    const $addButton = $(".add-btn");
-    const $inputField = $(".input-field");
-    const $taskList = $(".task-list");
+    const addButton = $(".add-btn");
+    const inputField = $(".input-field");
+    const taskList = $(".task-list");
 
     function addTask() {
-        const taskText = $.trim($inputField.val());
+        const taskText = inputField.val().trim();
 
         if (taskText.length === 0) {
-            $inputField.addClass("error");
+            inputField.addClass("error");
             alert("Необходимо ввести данные!");
             return;
         }
 
-        const $taskItem = $("<li>").addClass("task-item");
-        const $taskTextSpan = $("<span>").addClass("task-text").text(taskText);
+        const taskItem = $("<li>").addClass("task-item");
+        const taskTextSpan = $("<span>").addClass("task-text").text(taskText);
 
-        const $buttonsDiv = $("<div>").addClass("task-buttons");
-        const $editButton = $("<button>").addClass("edit-btn").text("Редактировать");
-        const $removeButton = $("<button>").addClass("remove-btn").text("Удалить");
+        const buttonsDiv = $("<div>").addClass("task-buttons");
+        const editButton = $("<button>").addClass("edit-button").text("Редактировать");
+        const removeButton = $("<button>").addClass("remove-button").text("Удалить");
 
-        $buttonsDiv.append($editButton, $removeButton);
-        $taskItem.append($taskTextSpan, $buttonsDiv);
-        $taskList.append($taskItem);
+        buttonsDiv.append(editButton, removeButton);
+        taskItem.append(taskTextSpan, buttonsDiv);
+        taskList.append(taskItem);
 
-        $inputField.val("").removeClass("error");
+        inputField.val("").removeClass("error");
 
-        findEditButtons();
+        setupTaskButtons(taskItem, taskTextSpan, editButton, removeButton);
+    }
 
-        $removeButton.on("click", function () {
-            $taskItem.remove();
+    function setupTaskButtons(taskItem, taskTextSpan, editButton, removeButton) {
+        editButton.click(() => {
+            startEditing(taskItem, taskTextSpan);
+        });
+
+        removeButton.click(() => {
+            taskItem.remove();
         });
     }
 
-    function findEditButtons() {
-        $(".edit-btn").each(function () {
-            $(this).on("click", function () {
-                const $parent = $(this).closest("li");
-                const $textElement = $parent.find(".task-text");
-                const originalText = $textElement.text();
+    function startEditing(taskItem, taskTextSpan) {
+        const originalText = taskTextSpan.text();
+        taskTextSpan.html(`<input type="text" class="edit-input" value="${originalText}" maxlength="50">`);
 
-                $textElement.html(`<input type="text" class="edit-input" value="${originalText}" maxlength="50">`);
+        const editInput = taskTextSpan.find(".edit-input");
+        const saveButton = $("<button>").addClass("save-button").text("Сохранить");
+        const cancelButton = $("<button>").addClass("cancel-button").text("Отменить");
 
-                $(this).replaceWith(`
-                    <button class="save-btn">Сохранить</button>
-                    <button class="cancel-btn">Отменить</button>
-                `);
+        taskItem.find(".task-buttons").append(saveButton, cancelButton);
+        taskItem.find(".edit-button, .remove-button").hide();
 
-                const $saveButton = $parent.find(".save-btn");
-                const $cancelButton = $parent.find(".cancel-btn");
-                const $inputField = $parent.find(".edit-input");
+        saveButton.click(() => {
+            const newText = editInput.val().trim();
 
-                $saveButton.on("click", function () {
-                    const newText = $.trim($inputField.val());
+            if (newText.length === 0) {
+                alert("Текст не может быть пустым!");
+                return;
+            }
 
-                    if (newText.length === 0) {
-                        alert("Текст не может быть пустым!");
-                        return;
-                    }
+            taskTextSpan.text(newText);
+            endEditing(taskItem, saveButton, cancelButton);
+        });
 
-                    $textElement.text(newText);
+        cancelButton.click(() => {
+            taskTextSpan.text(originalText);
+            endEditing(taskItem, saveButton, cancelButton);
+        });
 
-                    $saveButton.replaceWith(`<button class="edit-btn">Редактировать</button>`);
-                    $cancelButton.remove();
-
-                    findEditButtons();
-                });
-
-                $cancelButton.on("click", function () {
-                    $textElement.text(originalText);
-
-                    $cancelButton.replaceWith(`<button class="edit-btn">Редактировать</button>`);
-                    $saveButton.remove();
-
-                    findEditButtons();
-                });
-            });
+        editInput.keydown(function (e) {
+            if (e.key === "Enter") {
+                saveButton.click();
+            }
         });
     }
 
-    $inputField.on("keypress", function (e) {
+    function endEditing(taskItem, saveButton, cancelButton) {
+        taskItem.find(".edit-button, .remove-button").show();
+        saveButton.remove();
+        cancelButton.remove();
+    }
+
+    inputField.keydown(function (e) {
         if (e.key === "Enter") {
             addTask();
         }
     });
 
-    $addButton.on("click", addTask);
+    addButton.click(addTask);
 });
