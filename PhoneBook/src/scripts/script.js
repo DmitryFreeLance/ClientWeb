@@ -3,7 +3,11 @@ $(function () {
     const phoneNumbers = [];
     const applyFilterButton = $('.apply-filter-btn');
     const resetFilterButton = $('.reset-filter-btn');
-    const filterInput = $('#filter-input');
+    const filterInput = $('.filter-input');
+
+    function escapeHtml(text) {
+        return $('<div>').text(text).html();
+    }
 
     function applyFilter() {
         const filterText = filterInput.val().toLowerCase();
@@ -19,6 +23,19 @@ $(function () {
         $('table.phone-book tr').show();
     }
 
+    function toggleRemoveButton() {
+        const anyChecked = $('.checkboxes:checked').length > 0;
+        const mainRemoveButton = $('.remove-btn-main');
+
+        if (anyChecked) {
+            mainRemoveButton.prop('disabled', false).show();
+        } else {
+            mainRemoveButton.prop('disabled', true).hide();
+        }
+    }
+
+    $(document).on('change', '.checkboxes, .main-checkbox', toggleRemoveButton);
+
     applyFilterButton.click(applyFilter);
     resetFilterButton.click(resetFilter);
 
@@ -29,20 +46,23 @@ $(function () {
 
         removeButtons.click(function () {
             const row = $(this).closest('tr');
+            const phone = row.find('td:nth-child(5)').text().trim();
 
-            $("#dialog-confirm").dialog({
+            $(".dialog-confirm").dialog({
                 resizable: false,
-                height: "auto",
+                height: 'auto',
                 width: 400,
                 modal: true,
                 buttons: {
-                    "Удалить": function () {
+                    'Удалить': function () {
+                        phoneNumbers.splice(phoneNumbers.indexOf(phone), 1);
                         row.remove();
                         updateRowNumbers();
-                        $(this).dialog("close");
+                        toggleRemoveButton();
+                        $(this).dialog('close');
                     },
-                    "Отменить": function () {
-                        $(this).dialog("close");
+                    'Отменить': function () {
+                        $(this).dialog('close');
                     }
                 }
             });
@@ -54,22 +74,23 @@ $(function () {
         });
 
         mainRemoveButton.click(function () {
-            const selectedRows = $(".checkboxes:checked").closest('tr');
+            const selectedRows = $('.checkboxes:checked').closest('tr:visible');
 
-            if (selectedRows.length) {
-                $("#dialog-confirm").dialog({
+            if (selectedRows.length > 0) {
+                $(".dialog-confirm").dialog({
                     resizable: false,
-                    height: "auto",
+                    height: 'auto',
                     width: 400,
                     modal: true,
                     buttons: {
-                        "Удалить выбранные": function () {
+                        "Удалить": function () {
                             selectedRows.remove();
                             updateRowNumbers();
-                            $(this).dialog("close");
+                            $(this).dialog('close');
+                            toggleRemoveButton();
                         },
-                        "Отменить": function () {
-                            $(this).dialog("close");
+                        'Отменить': function () {
+                            $(this).dialog('close');
                         }
                     }
                 });
@@ -82,51 +103,82 @@ $(function () {
 
         editButtons.click(function () {
             const currentRow = $(this).closest('tr');
-            const editableCells = currentRow.find(".editable");
+            const editableCells = currentRow.find('.editable');
             const originalValues = [];
+            const originalPhone = currentRow.find('td:nth-child(5)').text().trim();
 
             editableCells.each(function () {
                 const originalText = $(this).text();
                 originalValues.push(originalText);
-                $(this).html(`<input type="text" class="temp-input" value="${originalText}" maxlength="18">`);
+                $(this).html(`<input type='text' class='edit-input' value='${escapeHtml(originalText)}' maxlength='18'>`);
             });
 
-            currentRow.find(".temp-input:last").keypress(function (e) {
+            currentRow.find('.temp-input:last').keypress(function (e) {
                 if (e.key < '0' || e.key > '9') {
                     e.preventDefault();
                 }
             });
 
             $(this).replaceWith(`
-                <button class="save-btn">Сохранить</button>
-                <button class="cancel-btn">Отменить</button>
-            `);
+            <button class='save-btn'>Сохранить</button>
+            <button class='cancel-btn'>Отменить</button>
+        `);
 
-            const saveButton = currentRow.find(".save-btn");
-            const cancelButton = currentRow.find(".cancel-btn");
+            const saveButton = currentRow.find('.save-btn');
+            const cancelButton = currentRow.find('.cancel-btn');
 
-            saveButton.click(function () {
-                const newValues = [];
+            function validateEditInputs() {
+                let isValid = true;
 
                 editableCells.each(function () {
-                    newValues.push($(this).find('input').val());
+                    const input = $(this).find('input');
+                    if (!input.val().trim()) {
+                        input.addClass('red-background');
+                        isValid = false;
+                    } else {
+                        input.removeClass('red-background');
+                    }
                 });
 
-                editableCells.each(function (index) {
-                    $(this).text(newValues[index]);
-                });
+                return isValid;
+            }
 
-                cancelButton.replaceWith(`<button class="edit-btn"><img class="images" src="../images/edit.png" alt="Редактировать" title="Редактировать"></button>`);
-                saveButton.remove();
-                bindEditButtons();
+            saveButton.click(function () {
+                if (validateEditInputs()) {
+                    const newPhone = currentRow.find('td:nth-child(5) input').val().trim();
+
+                    if (newPhone !== originalPhone && phoneNumbers.includes(newPhone)) {
+                        alert('Такой номер телефона уже существует');
+                        currentRow.find('td:nth-child(5) input').addClass('red-background');
+                        return;
+                    }
+
+                    const newValues = [];
+                    editableCells.each(function () {
+                        newValues.push($(this).find('input').val());
+                    });
+
+                    editableCells.each(function (index) {
+                        $(this).text(escapeHtml(newValues[index]));
+                    });
+
+                    if (newPhone !== originalPhone) {
+                        phoneNumbers.splice(phoneNumbers.indexOf(originalPhone), 1);
+                        phoneNumbers.push(newPhone);
+                    }
+
+                    cancelButton.replaceWith(`<button class='edit-btn'><img class='images' src='../images/edit.png' alt='Редактировать' title='Редактировать'></button>`);
+                    saveButton.remove();
+                    bindEditButtons();
+                }
             });
 
             cancelButton.click(function () {
                 editableCells.each(function (index) {
-                    $(this).text(originalValues[index]);
+                    $(this).text(escapeHtml(originalValues[index]));
                 });
 
-                cancelButton.replaceWith(`<button class="edit-btn"><img class="images" src="../images/edit.png" alt="Редактировать" title="Редактировать"></button>`);
+                cancelButton.replaceWith(`<button class='edit-btn'><img class='images' src='../images/edit.png' alt='Редактировать' title='Редактировать'></button>`);
                 saveButton.remove();
                 bindEditButtons();
             });
@@ -155,7 +207,7 @@ $(function () {
 
     function validateFields() {
         let isValid = true;
-        const inputs = $(".main-input");
+        const inputs = $('.main-input');
         const error = $('.error-msg');
         const errorPhone = $('.error-phone-msg');
 
@@ -174,9 +226,14 @@ $(function () {
         if (!isValid) {
             error.text('Необходимо заполнить поля: ');
 
-            inputs.filter('.red-background').each(function () {
+            inputs.filter('.red-background').each(function (item) {
                 const placeholder = $(this).prop('placeholder');
-                error.append(`${placeholder} `);
+
+                if (item === inputs.filter('.red-background').length - 1) {
+                    error.append(`${placeholder}. `);
+                } else {
+                    error.append(`${placeholder}, `);
+                }
             });
         }
 
@@ -195,22 +252,22 @@ $(function () {
 
     addButton.click(function () {
         if (validateFields()) {
-            const name = $('#name').val().trim();
-            const surname = $('#surname').val().trim();
+            const name = escapeHtml($('#name').val().trim());
+            const surname = escapeHtml($('#surname').val().trim());
             const phone = $('#phone').val().trim();
             phoneNumbers.push(phone);
             const nextCellNumber = $('table.phone-book tr').length;
 
             $('table.phone-book').append(`
                 <tr>
-                    <td><input type="checkbox" class="checkboxes"></td>
-                    <td class="number">${nextCellNumber}</td>
-                    <td class="editable">${surname}</td>
-                    <td class="editable">${name}</td>
-                    <td class="editable">${phone}</td>
+                    <td><input type='checkbox' class="checkboxes"></td>
+                    <td class='number'>${nextCellNumber}</td>
+                    <td class='editable'>${surname}</td>
+                    <td class='editable'>${name}</td>
+                    <td class='editable'>${phone}</td>
                     <td>
-                        <button class="edit-btn"><img class="images" src="../images/edit.png" alt="Редактировать" title="Редактировать"></button>
-                        <button class="remove-btn"><img class="images" src="../images/trash.png" alt="Удалить" title="Удалить"></button>
+                        <button class='edit-btn'><img class='images' src='../images/edit.png' alt='Редактировать' title='Редактировать'></button>
+                        <button class='remove-btn'><img class='images' src='../images/trash.png' alt='Удалить' title='Удалить'></button>
                     </td>
                 </tr>
             `);

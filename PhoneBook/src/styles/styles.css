@@ -21,14 +21,16 @@ body {
     margin-top: 25px;
 }
 
-.phone-book th, .phone-book td {
+.phone-book td {
     border: 1px solid #fff;
-    background: #16365c;
+    background: #6394cf;
     padding: 8px;
 }
 
-.phone-book tbody td {
-    background: #5a9bea;
+.phone-book th{
+    background: #16365c;
+    padding: 8px;
+    border: 1px solid #fff;
 }
 
 .main-input {
@@ -93,25 +95,27 @@ body {
     cursor: pointer;
 }
 
-#filter-input {
+.filter-input {
     width: 24%;
+    height: 30px;
     padding: 5px;
-    border: 1px solid #8e0808;
+    border: 2px solid #157dff;
 }
 
 .apply-filter-btn, .reset-filter-btn {
-    padding: 5px 15px;
+    height: 30px;
+    padding: 0 15px;
     text-align: center;
     color: #fff;
     background: #157dff;
     cursor: pointer;
 }
 
-#error-phone-msg, #error-msg {
-    color: #8e0808;
+.error-msg, .error-phone-msg {
+    color: #ff0000;
 }
 
-#dialog-confirm {
+.dialog-confirm {
     float: left;
     margin: 12px 12px 20px 0;
     display: none;
@@ -124,4 +128,8 @@ body {
 
 .filter-container {
     margin-top: 20px;
+}
+
+.edit-input {
+    border: 2px solid #ff0000;
 }

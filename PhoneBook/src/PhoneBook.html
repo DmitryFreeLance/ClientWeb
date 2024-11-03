@@ -14,27 +14,25 @@
 <div class="content">
     <h1>Телефонная Книга</h1>
     <div class="input-group">
-        <label>
-            <input type="text" class="main-input" id="surname" placeholder="Фамилия" maxlength="18">
-            <input type="text" class="main-input" id="name" placeholder="Имя" maxlength="18">
-            <input type="tel" class="main-input" id="phone" placeholder="Номер телефона" maxlength="18">
-        </label>
+        <input type="text" class="main-input" id="surname" placeholder="Фамилия" maxlength="18">
+        <input type="text" class="main-input" id="name" placeholder="Имя" maxlength="18">
+        <input type="tel" class="main-input" id="phone" placeholder="Номер телефона" maxlength="18">
         <button class="add-btn">Добавить</button>
     </div>
-    <div id="dialog-confirm" title="Подтверждение удаления">
-        <p><span class="ui-icon-alert"></span>Вы уверены что хотите удалить выбранный контакт?</p>
+    <div class="dialog-confirm" title="Подтверждение удаления">
+        <p><span class="ui-icon-alert"></span>Вы уверены, что хотите удалить выбранные контакты?</p>
     </div>
     <p class="error-msg"></p>
     <p class="error-phone-msg"></p>
     <div class="filter-container">
         <label>
-            <input type="text" id="filter-input" placeholder="Введите текст для фильтрации">
+            <input type="text" class="filter-input" placeholder="Введите текст для фильтрации">
             <button class="apply-filter-btn">Применить фильтр</button>
             <button class="reset-filter-btn">Сбросить фильтр</button>
         </label>
     </div>
     <table class="phone-book">
-        <thead>
+        <thead class="header">
         <tr>
             <th class="checkbox-cell">
                 <input type="checkbox" class="main-checkbox">
@@ -44,7 +42,7 @@
             <th>Имя</th>
             <th>Номер телефона</th>
             <th>
-                <button class="remove-btn-main" title="Удалить выбранные контакты">
+                <button class="remove-btn-main" title="Удалить выбранные">
                     <img class="images" src="./images/trash.png" alt="удалить">
                 </button>
             </th>
