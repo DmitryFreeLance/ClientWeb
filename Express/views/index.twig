@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Телефонная книга Vue</title>
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="../node_modules/vue/dist/vue.global.js" defer></script>
+  <script src="/js/script.js" defer></script>
+</head>
+<body>
+{% verbatim %}
+<div class="container">
+  <h1 class="header">Телефонная Книга Vue</h1>
+  <div id="app">
+    <div v-if="validationErrors.length" class="alert alert-danger">
+      <ul>
+        <li v-for="error in validationErrors" :key="error">{{ error }}</li>
+      </ul>
+    </div>
+    <form class="d-flex align-items-center mb-4 myForm" @submit.prevent="addInList">
+      <input v-model="name"
+             :class="{ 'error-border': validationErrors.includes('Необходимо заполнить поле «Имя».') }"
+             type="text" class="form-control me-2" placeholder="Имя" maxlength="30">
+      <input v-model="surname"
+             :class="{ 'error-border': validationErrors.includes('Необходимо заполнить поле «Фамилия».') }"
+             type="text" class="form-control me-2" placeholder="Фамилия" maxlength="30">
+      <input v-model="phoneNumber"
+             :class="{ 'error-border': validationErrors.includes('Необходимо заполнить поле «Номер телефона».') }"
+             type="text" class="form-control me-2" placeholder="Номер телефона" maxlength="20">
+      <button type="submit" class="btn btn-primary">Добавить</button>
+    </form>
+
+    <form class="d-flex align-items-center mb-4 myForm" @submit.prevent="applyFilter">
+      <input v-model="filter" type="text" class="form-control me-2 myFilter"
+             placeholder="Введите текст для фильтрации" maxlength="30">
+      <button type="button" @click="applyFilter" class="btn btn-primary btn-margin">Применить</button>
+      <button type="button" @click="resetFilter" class="btn btn-primary">Сбросить</button>
+    </form>
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col"><input type="checkbox" class="main-checkbox" @click="toggleSelectAll"
+                               v-model="selectAll"></th>
+        <th scope="col">#</th>
+        <th scope="col">Фамилия</th>
+        <th scope="col">Имя</th>
+        <th scope="col">Номер телефона</th>
+        <th scope="col" class="last-col">
+          <button class="remove-btn-main" title="Удалить выбранные контакты" @click="deleteSelected">
+            <img class="images" src="/images/trash.png" alt="удалить">
+          </button>
+        </th>
+      </tr>
+      </thead>
+      <tbody class="table-group-divider">
+      <tr v-for="(contact, index) in filteredContacts" :key="index">
+        <td><input type="checkbox" :value="index" v-model="selectedContacts"></td>
+        <td>{{ index + 1 }}</td>
+        <td v-if="!contact.isEditing">{{ contact.surname }}</td>
+        <td v-if="contact.isEditing">
+          <input v-model="contact.surname" type="text" class="form-control">
+        </td>
+        <td v-if="!contact.isEditing">{{ contact.name }}</td>
+        <td v-if="contact.isEditing">
+          <input v-model="contact.name" type="text" class="form-control">
+        </td>
+        <td v-if="!contact.isEditing">{{ contact.phoneNumber }}</td>
+        <td v-if="contact.isEditing">
+          <input v-model="contact.phoneNumber" type="text" class="form-control">
+        </td>
+        <td>
+          <button v-if="!contact.isEditing" @click="editItem(index)" class="remove-btn-main">
+            <img class="images" src="/images/edit.png" alt="редактировать">
+          </button>
+          <button v-if="contact.isEditing" @click="saveItem(index)" class="btn btn-sm btn-success btn-margin">
+            Сохранить
+          </button>
+          <button v-if="contact.isEditing" @click="cancelItem(index)" class="btn btn-sm btn-secondary">
+            Отмена
+          </button>
+          <button v-if="!contact.isEditing" @click="confirmDelete(index)" class="remove-btn-main">
+            <img class="images" src="/images/trash.png" alt="удалить">
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endverbatim %}
+</body>
+</html>
