@@ -13,34 +13,33 @@
 <div class="container">
     <div class="card">
         <div id="app">
-            <form class="row g-3" id="add">
-                <h1 class="header">Список дел</h1>
-                <div class="col-lg-8">
+            <form class="row g-3" id="add" @submit.prevent="addToList">
+                <h1 class="text-center">Список дел</h1>
+                <div class="col-12 col-lg-8">
                     <label for="inputText" class="visually-hidden">Текст</label>
-                    <input v-model="newItem" type="text" class="form-control" id="inputText"
-                           placeholder="Введите задачу" maxlength="48">
+                    <input v-model="newTextItem" type="text" class="form-control" id="inputText"
+                           placeholder="Введите задачу" maxlength="120">
+                    <p class="error-msg text-center" v-if="showErrorMessage">Необходимо ввести данные</p>
                 </div>
-                <div class="col-lg-4">
-                    <button @click="addInList" type="submit" class="btn btn-primary mb-3">Добавить</button>
+                <div class="col-12 col-lg-4">
+                    <button type="submit" class="btn btn-primary w-100">Добавить</button>
                 </div>
             </form>
             <div>
-                <ul>
-                    <li v-for="(item, index) in items" :key="index" class="items">
-                        <span v-if="!item.isEditing">{{ item.text }}</span>
+                <ul class="list-group">
+                    <li v-for="item in items" :key="item.id" class="list-group-item d-flex justify-content-between align-items-center">
+                        <div v-if="!item.isEditing" class="task-text">{{ item.text }}</div>
                         <input v-else v-model="item.text" type="text" class="form-control edit" maxlength="48"/>
 
-                        <div class="buttons">
-                            <button v-if="!item.isEditing" @click="editItem(index)" class="btn btn-warning btn-sm mx-1">
+                        <div class="buttons d-flex">
+                            <button v-if="!item.isEditing" @click="editItem(item)" class="btn btn-warning btn-sm mx-1">
                                 Редактировать
                             </button>
-                            <button v-else @click="saveItem(index)" class="btn btn-success btn-sm mx-1">Сохранить
-                            </button>
-
-                            <button v-if="!item.isEditing" @click="deleteItem(index)" class="btn btn-danger btn-sm">
+                            <button v-else @click="saveItem(item)" class="btn btn-success btn-sm mx-1">Сохранить</button>
+                            <button v-if="!item.isEditing" @click="deleteItem(item)" class="btn btn-danger btn-sm">
                                 Удалить
                             </button>
-                            <button v-else @click="cancelItem(index)" class="btn btn-danger btn-sm">Отменить</button>
+                            <button v-else @click="cancelItem(item)" class="btn btn-danger btn-sm">Отменить</button>
                         </div>
                     </li>
                 </ul>

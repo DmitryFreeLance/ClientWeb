@@ -1,32 +1,45 @@
 const app = Vue.createApp({
     data() {
         return {
-            newItem: '',
-            items: []
+            newTextItem: '',
+            items: [],
+            showErrorMessage: false
         };
     },
     methods: {
-        addInList(event) {
-            event.preventDefault();
-            if (this.newItem.trim() !== '') {
-                this.items.push({text: this.newItem, isEditing: false, originalText: this.newItem});
-                this.newItem = '';
+        addToList() {
+            this.showErrorMessage = false;
+
+            if (this.newTextItem.trim() !== '') {
+                this.items.push({
+                    id: Date.now(),
+                    text: this.newTextItem.trim(),
+                    isEditing: false,
+                    originalText: this.newTextItem.trim()
+                });
+                this.newTextItem = '';
+            } else {
+                this.showErrorMessage = true;
             }
         },
-        editItem(index) {
-            this.items[index].isEditing = true;
+        editItem(item) {
+            item.isEditing = true;
+            item.originalText = item.text;
         },
-        saveItem(index) {
-            this.items[index].isEditing = false;
+        saveItem(item) {
+            item.text = item.text.trim();
+            item.isEditing = false;
         },
-        deleteItem(index) {
-            this.items.splice(index, 1);
+        deleteItem(item) {
+            if (confirm("Вы уверены, что хотите удалить задачу?")) {
+                this.items = this.items.filter(i => i.id !== item.id);
+            }
         },
-        cancelItem(index) {
-            this.items[index].text = this.items[index].originalText
-            this.items[index].isEditing = false;
+        cancelItem(item) {
+            item.text = item.originalText;
+            item.isEditing = false;
         }
     }
 });
 
-app.mount("#app");
+app.mount('#app');

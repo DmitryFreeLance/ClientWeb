@@ -1,19 +1,11 @@
-* {
-    box-sizing: border-box;
-}
-
 .card {
-    margin: 0 auto;
+    margin: 3rem auto;
     align-items: center;
-    width: 60%;
-}
-
-.header {
-    text-align: center;
+    width: max-content;
 }
 
 .form-control {
-    border: 1px solid #ff0000ff;
+    border: 1px solid #0085f4;
     background: #eaeaea;
     color: #000;
 }
@@ -34,4 +26,12 @@
 .edit {
     width: 60%;
     display: inline;
+}
+
+.error-msg {
+    color: #bf0000;
+}
+
+#add {
+    margin: 2rem;
 }
