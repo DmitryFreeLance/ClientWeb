@@ -2,24 +2,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const addButton = document.querySelector(".add-btn");
     const inputField = document.querySelector(".input-field");
     const taskList = document.querySelector(".task-list");
+    const errorText = document.querySelector(".error-text");
 
     function addTask() {
         const taskText = inputField.value.trim();
 
         if (taskText.length === 0) {
             inputField.classList.add("error-border");
-            alert("Необходимо ввести данные!");
+            errorText.textContent = "Необходимо ввести данные!";
+            errorText.style.display = "block";
             return;
         }
 
         inputField.classList.remove("error-border");
+        errorText.style.display = "none";
 
         const taskItem = document.createElement("li");
         taskItem.classList.add("task-item");
 
         const taskTextSpan = document.createElement("span");
         taskTextSpan.classList.add("task-text");
-        taskTextSpan.textContent = taskText;
+        taskTextSpan.textContent = taskText.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
         const buttonsDiv = document.createElement("div");
         buttonsDiv.classList.add("task-buttons");
@@ -68,7 +71,9 @@ document.addEventListener("DOMContentLoaded", () => {
         cancelButton.addEventListener("click", () => cancelEdit(textElement, originalText, editButtonsDiv));
 
         editInputField.addEventListener("keypress", (e) => {
-            if (e.key === "Enter") saveTask(editInputField, textElement, originalText, editButtonsDiv);
+            if (e.key === "Enter") {
+                saveTask(editInputField, textElement, originalText, editButtonsDiv);
+            }
         });
     }
 
@@ -76,13 +81,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const newText = editInputField.value.trim();
 
         if (newText.length === 0) {
-            alert("Текст не может быть пустым!");
+            errorText.textContent = "Текст не может быть пустым!";
             editInputField.classList.add("error-border");
             return;
         }
 
         editInputField.classList.remove("error-border");
-        textElement.textContent = newText;
+        textElement.textContent = newText.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
         resetButtons(editButtonsDiv);
     }
 
@@ -100,7 +105,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     inputField.addEventListener("keypress", (e) => {
-        if (e.key === "Enter") addTask();
+        if (e.key === "Enter") {
+            addTask();
+        }
     });
 
     addButton.addEventListener("click", addTask);

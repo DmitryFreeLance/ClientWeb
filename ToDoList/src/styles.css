@@ -17,7 +17,8 @@ body {
     margin: 0 auto;
     padding: 20px;
     border-radius: 10px;
-    width: 600px;
+    width: 100%;
+    max-width: max-content;
     background: #feeed6;
     text-align: center;
     border: 2px solid #000;
@@ -33,24 +34,31 @@ body {
     text-indent: 5px;
     background: #fff;
     color: #000;
-    padding: 10px;
-    width: 80%;
+    padding: 15px;
+    width: calc(100% - 30px);
 }
 
 .input-field.error-border {
-    border-color: #ff0000ff !important;
+    border-color: #ff0000;
+}
+
+.error-text {
+    color: #ff0000;
+    font-size: 12px;
+    display: none;
 }
 
 .input-field::placeholder {
-    color: #fff
+    color: #fff;
 }
 
 .add-btn {
-    padding: 10px 20px;
+    padding: 15px 25px;
     background: #378db2;
     color: #fff;
     border: none;
     cursor: pointer;
+    font-size: 14px;
 }
 
 .task-list {
@@ -65,7 +73,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 15px;
     border-bottom: 1px solid #000;
     color: #000;
 }
@@ -79,7 +87,7 @@ body {
 }
 
 .edit-btn, .remove-btn, .save-btn, .cancel-btn {
-    padding: 2px 10px;
+    padding: 10px 15px;
     margin-left: 10px;
     cursor: pointer;
     border: none;
@@ -106,4 +114,6 @@ body {
     border: 1px solid #000;
     background: #fff;
     color: #000;
+    padding: 15px;
+    font-size: 14px;
 }
