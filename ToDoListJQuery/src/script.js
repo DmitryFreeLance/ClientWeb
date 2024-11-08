@@ -1,14 +1,23 @@
-$(document).ready(function () {
+$(document).ready(() => {
     const addButton = $(".add-btn");
     const inputField = $(".input-field");
     const taskList = $(".task-list");
+    const errorMsg = $(".error-msg");
 
-    function addTask() {
+    const showError = (message) => {
+        errorMsg.text(message).show();
+        inputField.addClass("error");
+    };
+
+    const hideError = () => {
+        errorMsg.hide();
+        inputField.removeClass("error");
+    };
+
+    const addTask = () => {
         const taskText = inputField.val().trim();
-
         if (taskText.length === 0) {
-            inputField.addClass("error");
-            alert("Необходимо ввести данные!");
+            showError("Необходимо ввести данные!");
             return;
         }
 
@@ -23,26 +32,28 @@ $(document).ready(function () {
         taskItem.append(taskTextSpan, buttonsDiv);
         taskList.append(taskItem);
 
-        inputField.val("").removeClass("error");
+        inputField.val("");
+        hideError();
 
         setupTaskButtons(taskItem, taskTextSpan, editButton, removeButton);
-    }
+    };
 
-    function setupTaskButtons(taskItem, taskTextSpan, editButton, removeButton) {
-        editButton.click(() => {
-            startEditing(taskItem, taskTextSpan);
-        });
+    const setupTaskButtons = (taskItem, taskTextSpan, editButton, removeButton) => {
+        editButton.click(() => startEditing(taskItem, taskTextSpan));
+        removeButton.click(() => taskItem.remove());
+    };
 
-        removeButton.click(() => {
-            taskItem.remove();
-        });
-    }
-
-    function startEditing(taskItem, taskTextSpan) {
+    const startEditing = (taskItem, taskTextSpan) => {
         const originalText = taskTextSpan.text();
-        taskTextSpan.html(`<input type="text" class="edit-input" value="${originalText}" maxlength="50">`);
+        const editInput = $("<input>").attr({
+            type: "text",
+            class: "edit-input",
+            value: originalText,
+            maxlength: 50
+        });
 
-        const editInput = taskTextSpan.find(".edit-input");
+        taskTextSpan.html(editInput);
+
         const saveButton = $("<button>").addClass("save-button").text("Сохранить");
         const cancelButton = $("<button>").addClass("cancel-button").text("Отменить");
 
@@ -51,38 +62,35 @@ $(document).ready(function () {
 
         saveButton.click(() => {
             const newText = editInput.val().trim();
-
             if (newText.length === 0) {
-                alert("Текст не может быть пустым!");
+                showError("Текст не может быть пустым!");
                 return;
             }
 
             taskTextSpan.text(newText);
+            hideError();
             endEditing(taskItem, saveButton, cancelButton);
         });
 
         cancelButton.click(() => {
             taskTextSpan.text(originalText);
+            hideError();
             endEditing(taskItem, saveButton, cancelButton);
         });
 
-        editInput.keydown(function (e) {
-            if (e.key === "Enter") {
-                saveButton.click();
-            }
+        editInput.keydown((e) => {
+            if (e.key === "Enter") saveButton.click();
         });
-    }
+    };
 
-    function endEditing(taskItem, saveButton, cancelButton) {
+    const endEditing = (taskItem, saveButton, cancelButton) => {
         taskItem.find(".edit-button, .remove-button").show();
         saveButton.remove();
         cancelButton.remove();
-    }
+    };
 
-    inputField.keydown(function (e) {
-        if (e.key === "Enter") {
-            addTask();
-        }
+    inputField.keydown((e) => {
+        if (e.key === "Enter") addTask();
     });
 
     addButton.click(addTask);

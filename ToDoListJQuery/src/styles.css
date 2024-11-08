@@ -17,8 +17,8 @@ body {
     margin: 0 auto;
     padding: 20px;
     border-radius: 10px;
-    width: 600px;
-    background: #ffffff;
+    width: max-content;
+    background: #fff;
     text-align: center;
     border: 2px solid #ccc;
 }
@@ -31,7 +31,7 @@ body {
     margin: 15px auto;
     border: 1px solid #ccc;
     text-indent: 5px;
-    background: #ffffff;
+    background: #fff;
     color: #333;
     padding: 10px;
     width: 80%;
@@ -39,7 +39,13 @@ body {
 }
 
 .input-field.error {
-    border-color: #ff0000;
+    border-color: #f00;
+}
+
+.error-msg {
+    color: #f00;
+    font-size: 12px;
+    display: none;
 }
 
 .input-field::placeholder {
@@ -81,7 +87,7 @@ body {
 }
 
 .edit-button, .remove-button, .save-button, .cancel-button {
-    padding: 2px 10px;
+    padding: 5px 12px;
     margin-left: 10px;
     cursor: pointer;
     border: none;
@@ -107,5 +113,4 @@ body {
 .edit-input {
     border: 1px solid #ccc;
     padding: 5px;
-    width: 80%;
 }
