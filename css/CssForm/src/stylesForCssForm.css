@@ -66,15 +66,18 @@ body {
     overflow: auto;
 }
 
+.button-container {
+    text-align: right;
+    overflow: hidden;
+}
+
 .send-button {
-    display: inline-block;
-    padding: 6px 12px;
+    padding: 8px 12px;
     text-align: center;
     color: #fff;
     background: #378db2;
     font-weight: 700;
     font-size: 14px;
-    float: right;
     border: none;
     cursor: pointer;
 }
