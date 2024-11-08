@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         clearErrorMessage();
 
-        const convertedTemperature = performTemperatureConversion(inputTemperature, inputScale, outputScale);
+        const convertedTemperature = convertTemperature(inputTemperature, inputScale, outputScale);
 
         if (convertedTemperature === null) {
             showErrorMessage('Ошибка при конвертации');
@@ -23,54 +23,34 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector('.output-field').value = convertedTemperature.toFixed(2);
     });
 
-    const conversionRegistry = {
-        celsius: {
-            fahrenheit: convertCelsiusToFahrenheit,
-            kelvin: convertCelsiusToKelvin,
-            celsius: temperature => temperature
-        },
-        fahrenheit: {
-            celsius: convertFahrenheitToCelsius,
-            kelvin: convertFahrenheitToKelvin,
-            fahrenheit: temperature => temperature
-        },
-        kelvin: {
-            celsius: convertKelvinToCelsius,
-            fahrenheit: convertKelvinToFahrenheit,
-            kelvin: temperature => temperature
-        }
-    };
+    const scaleRegistry = {};
 
-    function performTemperatureConversion(temperature, fromScale, toScale) {
-        if (!conversionRegistry[fromScale] || !conversionRegistry[fromScale][toScale]) {
+    function registerScale(scaleName, toCelsius, fromCelsius) {
+        scaleRegistry[scaleName] = {
+            toCelsius,
+            fromCelsius
+        };
+    }
+
+    function convertTemperature(temperature, fromScale, toScale) {
+        const from = scaleRegistry[fromScale];
+        const to = scaleRegistry[toScale];
+
+        if (!from || !to) {
             return null;
         }
-        return conversionRegistry[fromScale][toScale](temperature);
+
+        const celsiusTemp = from.toCelsius(temperature);
+        return to.fromCelsius(celsiusTemp);
     }
 
-    function convertCelsiusToFahrenheit(celsiusTemperature) {
-        return (celsiusTemperature * 9 / 5) + 32;
-    }
-
-    function convertCelsiusToKelvin(celsiusTemperature) {
-        return celsiusTemperature + 273.15;
-    }
-
-    function convertFahrenheitToCelsius(fahrenheitTemperature) {
-        return (fahrenheitTemperature - 32) * 5 / 9;
-    }
-
-    function convertKelvinToCelsius(kelvinTemperature) {
-        return kelvinTemperature - 273.15;
-    }
-
-    function convertFahrenheitToKelvin(fahrenheitTemperature) {
-        return convertCelsiusToKelvin(convertFahrenheitToCelsius(fahrenheitTemperature));
-    }
-
-    function convertKelvinToFahrenheit(kelvinTemperature) {
-        return convertCelsiusToFahrenheit(convertKelvinToCelsius(kelvinTemperature));
-    }
+    registerScale('celsius', temp => temp, temp => temp);
+    registerScale('fahrenheit',
+        fahrenheit => (fahrenheit - 32) * 5 / 9,
+        celsius => (celsius * 9 / 5) + 32);
+    registerScale('kelvin',
+        kelvin => kelvin - 273.15,
+        celsius => celsius + 273.15);
 
     function showErrorMessage(message) {
         const errorMessage = document.getElementById('error-message');
