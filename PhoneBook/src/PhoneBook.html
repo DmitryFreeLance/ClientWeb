@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>PhoneBook</title>
     <script defer src="./scripts/jquery-3.7.1.js"></script>
-    <script defer src="jquery-ui-1.14.0/jquery-ui.js"></script>
+    <script defer src="./scripts/jquery-ui-1.14.0/jquery-ui.js"></script>
     <script defer src="./scripts/script.js"></script>
-    <link href="jquery-ui-1.14.0/jquery-ui.css" rel="stylesheet">
+    <link href="./scripts/jquery-ui-1.14.0/jquery-ui.css" rel="stylesheet">
     <link href="./styles/cssReset.css" rel="stylesheet">
     <link href="./styles/styles.css" rel="stylesheet">
 </head>
@@ -20,6 +20,9 @@
         <button class="add-btn">Добавить</button>
     </div>
     <div class="dialog-confirm" title="Подтверждение удаления">
+        <p><span class="ui-icon-alert"></span>Вы уверены, что хотите удалить выбранный контакт?</p>
+    </div>
+    <div class="dialog-confirm-much" title="Подтверждение удаления">
         <p><span class="ui-icon-alert"></span>Вы уверены, что хотите удалить выбранные контакты?</p>
     </div>
     <p class="error-msg"></p>
@@ -48,6 +51,9 @@
             </th>
         </tr>
         </thead>
+        <tbody>
+
+        </tbody>
     </table>
 </div>
 </body>
